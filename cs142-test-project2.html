@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project 2</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+      'use strict';
+    </script>
+    <script src="./cs142-make-multi-filter.js"></script>
+    <script src="./cs142-template-processor.js"></script>
+    <script src="./cs142-test-project2.js"></script>
+  </head>
+  <body>
+    <h1>CS142 Project #2 </h1>
+    
+    <h3>Checking Results:</h3>
+    <ul>
+      <li>Problem #1 - <span id="cs142p1">Not tested</span></li>
+      <li>Problem #2 - <span id="cs142p2">Not tested</span></li>
+      <li>Problem #3 - <span id="cs142p3">Not tested</span></li>
+    </ul>
+  </body>
+  <script type="text/javascript">
+      
+    var arrayFilterer1 = cs142MakeMultiFilter([1,2,3]);
+
+    arrayFilterer1(function (elem) {
+      console.log("elem duudagdaj baina",elem);
+      return elem !== 2; 
+    }, function (currentArray) {
+      console.log("this",this); 
+      console.log("current:",currentArray); 
+    });
+
+    arrayFilterer1(function (elem) {
+      return elem !== 3; 
+    });
+
+    var currentArray = arrayFilterer1();
+
+    function filterTwos(elem) { return elem !== 2; }
+    function filterThrees(elem) { return elem !== 3; }
+    var arrayFilterer2 = cs142MakeMultiFilter([1,2,3]);
+    var currentArray2 = arrayFilterer2(filterTwos)(filterThrees)();
+    console.log('currentArray2', currentArray2);
+
+    var arrayFilterer3 = cs142MakeMultiFilter([1,2,3]);
+    var arrayFilterer4 = cs142MakeMultiFilter([4,5,6]);
+    console.log(arrayFilterer3(filterTwos)());  
+    console.log(arrayFilterer4(filterThrees)());  
+
+    var template = 'My favorite month is {{month}} but not the day {{day}} or the year {{year}}';
+
+    var dateTemplate = new Cs142TemplateProcessor(template);
+    var dictionary = {month_a: 'July', day_a: '1', year_a: '2016'};
+    var str = dateTemplate.fillIn(dictionary);
+
+</script>
+</html>
